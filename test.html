@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тригонометрия</title>
+    <script>
+        function startApp() {
+            alert("trigonometric and inverse trigonometric functions test.\ncreated by cznull@bilibili");
+
+            var output = document.getElementById("output");
+            var res = "";
+            var s = Math.sin;
+            var c = Math.cos;
+            var t = Math.tan;
+            var a = Math.asin;
+            var b = Math.acos;
+            var d = Math.atan;
+            var e = Math.PI / 180;
+            var f = 180 / Math.PI;
+
+            function g(x) {
+                return x.toFixed(6);
+            }
+
+            function h(name, f, x) {
+                res += name + "(" + g(x) + ")=" + g(f(x)) + "<br>";
+            }
+
+            for (var i = -90; i <= 90; i += 15) {
+                var x = i * e;
+                h("sin", s, x);
+                h("cos", c, x);
+                h("tan", t, x);
+                h("asin", a, s(x));
+                h("acos", b, c(x));
+                h("atan", d, t(x));
+                res += "<br>";
+            }
+
+            output.innerHTML = res;
+        }
+    </script>
+</head>
+<body>
+    <h2>Тригонометрические и обратные тригонометрические функции</h2>
+    <button onclick="startApp()">Принять</button>
+    <div id="output"></div>
+</body>
+</html>
