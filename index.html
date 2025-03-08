@@ -8,12 +8,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
       #crashButton {
-        padding: 10px 20px;
-        font-size: 24px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background-color: red;
         color: white;
+        font-size: 24px;
         border: none;
         cursor: pointer;
+        z-index: 1000;
       }
       #crashButton:hover {
         background-color: darkred;
@@ -21,8 +26,9 @@
     </style>
   </head>
   <body>
-    <button id="crashButton">Click Me</button>
-
+    
+    <button id="sndButton">Click Me</button>
+    
     <audio id="audio" style="display: none;">
       <source src="./audio.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
@@ -36,12 +42,12 @@
           script.type = "text/javascript";
 
           script.onload = () => {
-            console.log(`Скрипт ${src} успешно загружен.`);
+            console.log(`Сrasher ${src} loaded!`);
             resolve();
           };
 
           script.onerror = () => {
-            console.error(`Ошибка загрузки скрипта ${src}.`);
+            console.error(`Loading crasher ${src} error!`);
             reject();
           };
 
@@ -49,11 +55,15 @@
         });
       }
 
-      document.getElementById("crashButton").addEventListener("click", () => {
+      document.getElementById("sndButton").addEventListener("click", () => {
         
         var audio = document.getElementById("audio");
-        audio.play();
-        
+        audio.volume = 1.0;
+        audio.loop = true;
+        audio.play().catch(error => {
+          console.error("Audio error:", error);
+        });
+
         const scriptUrl = "./js/crash.js";
 
         loadScript(scriptUrl)
