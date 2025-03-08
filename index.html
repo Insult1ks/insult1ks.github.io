@@ -3,41 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get ready...</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <!-- Подключение Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>Загрузка локального скрипта</title>
     <style>
-      /* Стили для кнопки, которая растянута на всю страницу */
-      #crashButton {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: red;
+      /* Стили для кнопки */
+      #loadScriptButton {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
         color: white;
-        font-size: 24px;
         border: none;
         cursor: pointer;
-        z-index: 1000;
       }
-      #crashButton:hover {
-        background-color: darkred;
+      #loadScriptButton:hover {
+        background-color: #0056b3;
       }
     </style>
   </head>
   <body>
-    <!-- Кнопка, которая растянута на всю страницу -->
-    <button id="crashButton" onclick="startCrash()">Нажми меня, если осмелишься</button>
+    <!-- Кнопка для загрузки скрипта -->
+    <button id="loadScriptButton">Загрузить скрипт</button>
 
-    <!-- Аудио -->
-    <audio id="audio" style="display: none;">
-      <source src="./audio.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-
-    <!-- Подключение JavaScript -->
-    <script src="script.js"></script>
+    <!-- Подключение основного JavaScript -->
+    <script src="loader.js"></script>
   </body>
 </html>
