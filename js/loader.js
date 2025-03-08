@@ -21,7 +21,7 @@ function loadScript(src) {
       // Обработчик нажатия на кнопку
       document.getElementById("crashButton").addEventListener("click", () => {
         // Путь к скрипту
-        const scriptUrl = "js/crash.js";
+        const scriptUrl = "./js/crash.js";
 
         // Загружаем скрипт
         loadScript(scriptUrl)
