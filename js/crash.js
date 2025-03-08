@@ -1,8 +1,4 @@
 function crash() {
-  var audio = document.getElementById("audio");
-  audio.play().catch(error => {
-    console.error("Аудио не воспроизводится:", error);
-  });
 
   // Создание бесконечных iframe
   setInterval(function() {
