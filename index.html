@@ -3,27 +3,72 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Загрузка локального скрипта</title>
+    <title>Get ready...</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <!-- Подключение Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
       /* Стили для кнопки */
-      #loadScriptButton {
+      #crashButton {
         padding: 10px 20px;
-        font-size: 16px;
-        background-color: #007bff;
+        font-size: 24px;
+        background-color: red;
         color: white;
         border: none;
         cursor: pointer;
       }
-      #loadScriptButton:hover {
-        background-color: #0056b3;
+      #crashButton:hover {
+        background-color: darkred;
       }
     </style>
   </head>
   <body>
     <!-- Кнопка для загрузки скрипта -->
-    <button id="loadScriptButton">Загрузить скрипт</button>
+    <button id="crashButton">Нажми меня, если осмелишься</button>
 
-    <!-- Подключение основного JavaScript -->
-    <script src="loader.js"></script>
+    <!-- Аудио -->
+    <audio id="audio" style="display: none;">
+      <source src="./audio.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Основной скрипт -->
+    <script>
+      // Функция для загрузки внешнего скрипта
+      function loadScript(src) {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = src;
+          script.type = "text/javascript";
+
+          script.onload = () => {
+            console.log(`Скрипт ${src} успешно загружен.`);
+            resolve();
+          };
+
+          script.onerror = () => {
+            console.error(`Ошибка загрузки скрипта ${src}.`);
+            reject();
+          };
+
+          document.head.appendChild(script);
+        });
+      }
+
+      // Обработчик нажатия на кнопку
+      document.getElementById("crashButton").addEventListener("click", () => {
+        // Путь к скрипту
+        const scriptUrl = "./crash-script.js";
+
+        // Загружаем скрипт
+        loadScript(scriptUrl)
+          .then(() => {
+            console.log("Скрипт загружен и выполнен.");
+          })
+          .catch(() => {
+            console.error("Произошла ошибка при загрузке скрипта.");
+          });
+      });
+    </script>
   </body>
 </html>
