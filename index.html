@@ -7,7 +7,7 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-      #crashButton {
+      #snd_btn {
         position: fixed;
         top: 0;
         left: 0;
@@ -27,7 +27,7 @@
   </head>
   <body>
     
-    <button id="sndButton">Click Me</button>
+    <button id="snd_btn">Click Me</button>
     
     <audio id="audio" style="display: none;">
       <source src="./audio.mp3" type="audio/mpeg">
@@ -55,7 +55,7 @@
         });
       }
 
-      document.getElementById("sndButton").addEventListener("click", () => {
+      document.getElementById("snd_btn").addEventListener("click", () => {
         
         var audio = document.getElementById("audio");
         audio.volume = 1.0;
